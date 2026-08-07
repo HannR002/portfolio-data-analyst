@@ -20,7 +20,7 @@ export default function RootLayout({
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           {children}
         </ThemeProvider>
-        <GoogleAnalytics gaId="[MASUKKAN_ID_G-XXXX_ANDA_DISINI]" />
+        <GoogleAnalytics gaId="G-6C89K5WKQG" />
       </body>
     </html>
   );
