@@ -76,6 +76,9 @@ export default async function CaseStudy({ params }: Props) {
               <span aria-hidden="true">↗</span>
               <span className="sr-only"> (opens in a new tab)</span>
             </a>
+            {project.attribution && (
+              <p className="project-attribution">{project.attribution}</p>
+            )}
           </aside>
           <div className="case-content">
             <section>

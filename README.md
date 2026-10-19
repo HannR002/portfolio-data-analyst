@@ -1,7 +1,7 @@
 # Muhammad Farhan — Data & Systems Portfolio
 
 A Next.js portfolio with a glass/bento visual system, a searchable project collection,
-and three statically generated case studies. Light and dark themes follow the visitor's
+and seven statically generated case studies. Light and dark themes follow the visitor's
 system preference until they choose a theme.
 
 ## Local development
@@ -24,7 +24,8 @@ Add a project with a unique slug, category, status, tools, problem, approach, de
 next steps, and a public evidence link. `generateStaticParams` automatically includes it
 in the next build. To introduce a new category, also update the categories list.
 
-Current case studies cover P4I Spatial Analytics, KampusHub, and NGA Florist. Their content
+Current case studies cover P4I Spatial Analytics, KampusHub, NGA Florist, P4I Corporate Hub,
+P4I Publisher E-book, OJS Journal Development, and My Cat. Their content
 is an editorial snapshot of linked public source files reviewed on 19 October 2026, not
 a live status feed. The artwork is abstract, not a product screenshot. Do not add client
 counts, performance statistics, or production claims without supporting evidence.

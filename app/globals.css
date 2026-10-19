@@ -1186,3 +1186,57 @@ h1 span {
     transition: none !important;
   }
 }
+
+.visual-platform {
+  background: #e1e3f0;
+  color: #555f87;
+}
+.visual-publisher {
+  background: #f0e4ce;
+  color: #816235;
+}
+.visual-journal {
+  background: #dce8e9;
+  color: #3e6f73;
+}
+.visual-cat {
+  background: #efe0d3;
+  color: #936b4d;
+}
+.project-emblem {
+  position: absolute;
+  left: 50%;
+  top: 44%;
+  transform: translate(-50%, -50%) rotate(-9deg);
+  width: 116px;
+  height: 126px;
+  display: grid;
+  place-items: center;
+  border: 1px solid currentColor;
+  border-radius: 22px;
+  background: #ffffff65;
+  box-shadow: 11px 14px 0 #ffffff40;
+  z-index: 1;
+}
+.project-emblem svg {
+  width: 48px;
+  height: 48px;
+}
+.emblem-orbit {
+  position: absolute;
+  left: 50%;
+  top: 44%;
+  transform: translate(-50%, -50%) rotate(24deg);
+  width: 210px;
+  height: 155px;
+  border: 1px dashed currentColor;
+  opacity: 0.35;
+  border-radius: 50%;
+}
+.project-attribution {
+  margin-top: 20px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+  font-size: 11px;
+  line-height: 1.8;
+}

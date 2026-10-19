@@ -33,7 +33,7 @@ test("filters combine with normalized search and reset an empty result", async (
 }) => {
   await page.goto("/#work");
   const cards = page.locator(".project-card");
-  await expect(cards).toHaveCount(3);
+  await expect(cards).toHaveCount(7);
   await page
     .getByRole("button", { name: "Spatial analytics", exact: true })
     .click();
@@ -50,7 +50,7 @@ test("filters combine with normalized search and reset an empty result", async (
     page.getByRole("heading", { name: "No matching projects" }),
   ).toBeVisible();
   await page.getByRole("button", { name: "Reset filters" }).click();
-  await expect(cards).toHaveCount(3);
+  await expect(cards).toHaveCount(7);
   await expect(page.getByRole("searchbox")).toHaveValue("");
   await page.getByRole("searchbox").fill("  pOsTgIs  ");
   await expect(cards).toHaveCount(1);
@@ -58,12 +58,45 @@ test("filters combine with normalized search and reset an empty result", async (
   await page.getByRole("searchbox").fill("");
   for (const [category, title] of [
     ["Information systems", "KampusHub"],
+    ["Web platforms", "P4I Corporate Hub"],
+    ["Personal apps", "My Cat"],
     ["Digital commerce", "NGA Florist"],
   ]) {
     await page.getByRole("button", { name: category, exact: true }).click();
     await expect(cards).toHaveCount(1);
     await expect(cards).toContainText(title);
   }
+});
+
+test("publishing filter shows both publishing projects and search narrows them", async ({
+  page,
+}) => {
+  await page.goto("/#work");
+  await page
+    .getByRole("button", { name: "Academic publishing", exact: true })
+    .click();
+  await expect(page.locator(".project-card")).toHaveCount(2);
+  await expect(page.locator(".project-card")).toContainText([
+    "P4I Publisher E-book",
+    "OJS Journal Development",
+  ]);
+  await page.getByRole("searchbox").fill("Laravel");
+  await expect(page.locator(".project-card")).toHaveCount(1);
+  await expect(page.locator(".project-card")).toContainText(
+    "P4I Publisher E-book",
+  );
+});
+
+test("last case study cycles back to the first and OJS credits the upstream platform", async ({
+  page,
+}) => {
+  await page.goto("/work/my-cat");
+  await page.getByRole("link", { name: "Next: P4I Spatial Analytics" }).click();
+  await expect(page).toHaveURL("/work/p4i-webgis");
+  await page.goto("/work/ojs-journal-development");
+  await expect(page.locator(".project-attribution")).toContainText(
+    "Public Knowledge Project (PKP)",
+  );
 });
 
 test("theme toggles the resolved system preference and persists", async ({
@@ -92,6 +125,10 @@ for (const [slug, title, stage] of [
   ["p4i-webgis", "P4I Spatial Analytics", "In development"],
   ["kampushub", "KampusHub", "Interactive prototype"],
   ["nga-florist", "NGA Florist", "Browser demo"],
+  ["p4i-corporate-hub", "P4I Corporate Hub", "Implemented / under review"],
+  ["p4i-publisher-ebook", "P4I Publisher E-book", "In development"],
+  ["ojs-journal-development", "OJS Journal Development", "Prepared for review"],
+  ["my-cat", "My Cat", "In development"],
 ]) {
   test(`case study ${slug} supports navigation, direct loading, and evidence links`, async ({
     page,
@@ -186,6 +223,10 @@ test("small viewports do not overflow and reduced motion is respected", async ({
     "/work/p4i-webgis",
     "/work/kampushub",
     "/work/nga-florist",
+    "/work/p4i-corporate-hub",
+    "/work/p4i-publisher-ebook",
+    "/work/ojs-journal-development",
+    "/work/my-cat",
   ]) {
     await page.goto(path);
     expect(
@@ -214,7 +255,7 @@ test("core content and case study navigation remain available without JavaScript
   const context = await browser.newContext({ javaScriptEnabled: false });
   const page = await context.newPage();
   await page.goto(`${baseURL}/`);
-  await expect(page.locator(".project-card")).toHaveCount(3);
+  await expect(page.locator(".project-card")).toHaveCount(7);
   await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
   await page.getByRole("link", { name: "Read NGA Florist case study" }).click();
   await expect(page.getByRole("heading", { level: 1 })).toHaveText(

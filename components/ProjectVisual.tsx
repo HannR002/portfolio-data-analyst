@@ -1,4 +1,5 @@
 import type { Project } from "../data/portfolio";
+import { FaBookOpen, FaBuilding, FaPaw, FaRegFileAlt } from "react-icons/fa";
 
 // Abstract project artwork, not a screenshot or a representation of live data.
 export function ProjectVisual({ kind }: { kind: Project["visual"] }) {
@@ -33,7 +34,7 @@ export function ProjectVisual({ kind }: { kind: Project["visual"] }) {
           <span className="visual-chip">A clearer handover</span>
           <span className="visual-caption">DISCOVER / MEET / CONFIRM</span>
         </>
-      ) : (
+      ) : kind === "florist" ? (
         <>
           <div className="flower">
             <i />
@@ -46,6 +47,39 @@ export function ProjectVisual({ kind }: { kind: Project["visual"] }) {
           <div className="florist-ring" />
           <span className="visual-chip">Thoughtfully arranged</span>
           <span className="visual-caption">CATALOG / CUSTOMIZE / INQUIRE</span>
+        </>
+      ) : (
+        <>
+          <div className="project-emblem">
+            {kind === "platform" ? (
+              <FaBuilding />
+            ) : kind === "publisher" ? (
+              <FaBookOpen />
+            ) : kind === "journal" ? (
+              <FaRegFileAlt />
+            ) : (
+              <FaPaw />
+            )}
+          </div>
+          <div className="emblem-orbit" />
+          <span className="visual-chip">
+            {kind === "platform"
+              ? "One place to explore"
+              : kind === "publisher"
+                ? "From author to reader"
+                : kind === "journal"
+                  ? "A foundation for publishing"
+                  : "Little moments, kept close"}
+          </span>
+          <span className="visual-caption">
+            {kind === "platform"
+              ? "PROFILE / PROGRAMS / CONNECTIONS"
+              : kind === "publisher"
+                ? "CATALOG / SUBMISSION / ACCESS"
+                : kind === "journal"
+                  ? "PREPARE / REVIEW / EXTEND"
+                  : "PROFILES / SOUNDS / MEMORIES"}
+          </span>
         </>
       )}
     </div>
