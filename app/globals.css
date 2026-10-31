@@ -1240,3 +1240,35 @@ h1 span {
   font-size: 11px;
   line-height: 1.8;
 }
+
+/* Original spatial portrait composition; CSS 3D, no WebGL download. */
+.hero { grid-template-columns: 1.2fr 1fr; gap: 24px; }
+.hero-copy { align-self: center; }
+.portrait-experience { min-width: 0; padding: 0 0 28px; }
+.portrait-stage { perspective: 1100px; height: 460px; display: grid; place-items: center; }
+.portrait-scene { position: relative; width: 280px; height: 380px; transform-style: preserve-3d; transform: rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)); transition: transform .22s ease-out, rotate .4s ease; }
+.portrait-frame { position: absolute; inset: 0; margin: 0; border-radius: 100px 100px 18px 18px; overflow: hidden; transform: translateZ(24px); background: #173a37; box-shadow: 0 30px 65px #102c3238; }
+.portrait-frame img { width: 100%; height: 100%; object-fit: cover; object-position: center 57%; }
+.portrait-frame figcaption { position: absolute; inset: auto 0 0; padding: 50px 22px 22px; background: linear-gradient(transparent, #091b28ee); color: white; display: grid; gap: 5px; }
+.portrait-frame figcaption span { font-size: 9px; letter-spacing: .08em; }
+.portrait-frame figcaption strong { font-size: 22px; letter-spacing: -.04em; }
+.portrait-backplate { position: absolute; inset: -12px; border: 1px solid var(--accent); border-radius: 110px 110px 24px 24px; transform: translateZ(-22px) rotateZ(-7deg); opacity: .5; }
+.spatial-token { position: absolute; border: 1px solid var(--line); background: var(--bg); box-shadow: 0 15px 35px #163e3826; border-radius: 14px; padding: 14px 18px; display: grid; gap: 7px; transform: translateZ(65px); }
+.spatial-token span { color: var(--muted); font-size: 8px; letter-spacing: .13em; }
+.spatial-token strong { color: var(--accent); font-size: 21px; }
+.token-top { right: -28px; top: 24px; rotate: 8deg; }
+.token-bottom { left: -26px; bottom: 75px; rotate: -6deg; }
+.token-bottom strong { font-size: 14px; }
+.scene-ring { position: absolute; inset: 40px -35px; border: 1px dashed var(--accent); border-radius: 50%; transform: translateZ(-50px) rotateY(48deg); opacity: .35; }
+.scene-controls { display: flex; justify-content: center; gap: 6px; }
+.scene-controls button { background: var(--glass); border: 1px solid var(--line); color: var(--text); padding: 8px 12px; border-radius: 30px; font-size: 10px; min-height: 36px; }
+.scene-controls button:hover { background: var(--soft); }
+.project-card { transition: transform .25s, box-shadow .25s; }
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+.project-card:hover { transform: perspective(1200px) rotateX(2deg) translateY(-7px); box-shadow: 0 22px 45px #163e3820; }
+.project-card:hover .project-emblem { transform: translate(-50%,-55%) rotate(0deg); transition: transform .3s; }
+}
+@media(max-width: 1000px) { .portrait-scene { width: 230px; height: 340px; } .portrait-stage { height: 420px; } }
+@media(max-width: 768px) { .hero { grid-template-columns: 1fr; } .portrait-stage { height: 410px; } .portrait-scene { width: 260px; height: 350px; } }
+@media(max-width: 380px) { .portrait-scene { width: 200px; height: 310px; } .portrait-stage { height: 370px; } .spatial-token { padding: 10px; } .token-top { right: -14px; } .token-bottom { left: -12px; } }
+@media(prefers-reduced-motion: reduce) { .portrait-scene { transform: none !important; rotate: none !important; } }
