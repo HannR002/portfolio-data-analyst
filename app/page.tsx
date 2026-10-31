@@ -1,3 +1,4 @@
+import { PortraitScene } from "../components/PortraitScene";
 import {
   FaArrowRight,
   FaArrowUp,
@@ -30,8 +31,8 @@ export default function Portfolio() {
               <span>Building what’s next.</span>
             </h1>
             <p className="hero-description">
-              An Information Systems student exploring the connection between
-              data, digital workflows, and the people who use them.
+              I build web experiences that connect data, digital workflows,
+              and the people who use them.
             </p>
             <div className="hero-actions">
               <a className="button primary" href="#work">
@@ -42,25 +43,7 @@ export default function Portfolio() {
               </a>
             </div>
           </div>
-          <div className="hero-art" aria-hidden="true">
-            <div className="orbit orbit-one" />
-            <div className="orbit orbit-two" />
-            <div className="hero-art-core">
-              <FaDatabase />
-              <span>DATA</span>
-            </div>
-            <div className="orbit-label label-one">
-              <FaMapMarkedAlt />
-              Spatial context
-            </div>
-            <div className="orbit-label label-two">
-              <FaProjectDiagram />
-              Connected systems
-            </div>
-            <span className="art-footnote">
-              FROM INFORMATION TO APPLICATION
-            </span>
-          </div>
+          <PortraitScene />
           <div className="hero-bottom">
             <span>DATA & SYSTEMS PORTFOLIO</span>
             <span>Selected work / 2026</span>
@@ -80,7 +63,7 @@ export default function Portfolio() {
               Focused on the workflow.
             </h2>
             <p>
-              I’m Farhan, an Information Systems student based in Jambi. My
+              I’m Farhan, a developer based in Jambi. My
               projects span spatial information, campus services, and digital
               tools for small businesses.
             </p>
