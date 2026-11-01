@@ -36,11 +36,12 @@ export type Project = {
     | "platform"
     | "publisher"
     | "journal"
-    | "cat";
+    | "cat"
+    | "inventory";
   attribution?: string;
 };
 
-// Editorial snapshots verified against linked public sources on 19 October 2026.
+// Public-source editorial review: 1 November 2026. See docs/PROJECT_COVERAGE.md.
 // Implementation evidence does not establish production adoption or business impact.
 export const projects: Project[] = [
   {
@@ -72,8 +73,37 @@ export const projects: Project[] = [
     visual: "spatial",
   },
   {
-    slug: "kampushub",
+    slug: "nga-inventra",
     number: "02",
+    title: "NGA Inventra",
+    category: "Information systems",
+    stage: "In development",
+    summary:
+      "Bringing multi-warehouse stock, serialized assets, and accountable inventory workflows into one connected system.",
+    stack: ["React", "Express", "Prisma", "MySQL"],
+    repository:
+      "https://github.com/HannR002/NGA-Inventra---Enterprise-Inventory-Asset-Management",
+    evidence:
+      "https://github.com/HannR002/NGA-Inventra---Enterprise-Inventory-Asset-Management/blob/main/server/db/repository.ts",
+    evidenceLabel: "Database repository implementation",
+    problem:
+      "Consumable stock and individually tracked assets follow different rules. Warehouse teams need a consistent way to receive, issue, transfer, and reconcile both while keeping an accountable history.",
+    approach: [
+      "Separate SKU-level stock balances from physical asset units with unique serial numbers and custodians.",
+      "Connect warehouse movements, requests, stock counts, and audit records through a shared backend repository.",
+      "Provide a Prisma/MySQL implementation and a standalone development store, requiring a configured database in production.",
+    ],
+    delivered: [
+      "React interfaces for inventory, assets, warehouses, goods receipt, goods issue, transfers, stock counts, and reports.",
+      "An Express backend with authentication, role permissions, inventory operations, and audit records.",
+      "Prisma schema, MySQL migrations, database diagnostics, and stock-rule and database-integration test sources.",
+    ],
+    next: "Verify the configured MySQL environment, access boundaries, concurrent inventory movements, and deployment behavior in staging before operational use.",
+    visual: "inventory",
+  },
+  {
+    slug: "kampushub",
+    number: "03",
     title: "KampusHub",
     category: "Information systems",
     stage: "Interactive prototype",
@@ -101,7 +131,7 @@ export const projects: Project[] = [
   },
   {
     slug: "nga-florist",
-    number: "03",
+    number: "04",
     title: "NGA Florist",
     category: "Digital commerce",
     stage: "Browser demo",
@@ -128,7 +158,7 @@ export const projects: Project[] = [
   },
   {
     slug: "p4i-corporate-hub",
-    number: "04",
+    number: "05",
     title: "P4I Corporate Hub",
     category: "Web platforms",
     stage: "Implemented / under review",
@@ -156,12 +186,12 @@ export const projects: Project[] = [
   },
   {
     slug: "p4i-publisher-ebook",
-    number: "05",
+    number: "06",
     title: "P4I Publisher E-book",
     category: "Academic publishing",
     stage: "In development",
     summary:
-      "A Laravel publishing application connecting a digital catalog, manual payment review, reader access, and author submission workflows.",
+      "A digital library and publishing platform connecting a multi-format catalog, reading permissions, manual payments, and manuscript curation.",
     stack: ["Laravel", "PHP", "Blade", "SQL"],
     repository: "https://github.com/HannR002/P4I-Publisher-Ebook",
     evidence:
@@ -175,16 +205,16 @@ export const projects: Project[] = [
       "Organize author submissions and manuscript curation alongside publication management.",
     ],
     delivered: [
-      "Catalog, library, account, order, and reader routes in a Laravel application.",
-      "Manual-payment submission and administrator verification workflows in the route structure.",
-      "Author submission, manuscript curation, publication management, and reporting entry points.",
+      "A multi-format publication catalog with configurable reading, download, and external-source access policies.",
+      "Manual orders, private payment-proof submission, administrator verification, and access-grant workflows.",
+      "Author submissions, manuscript curation, and analytics; legacy Midtrans, royalty, payout, and financial KYC features disabled by default.",
     ],
     next: "Verify authorization, file access, payment-state transitions, and complete reader/author workflows in staging. The route implementation alone does not establish production readiness or successful payment processing.",
     visual: "publisher",
   },
   {
     slug: "ojs-journal-development",
-    number: "06",
+    number: "07",
     title: "OJS Journal Development",
     category: "Academic publishing",
     stage: "Prepared for review",
@@ -214,7 +244,7 @@ export const projects: Project[] = [
   },
   {
     slug: "my-cat",
-    number: "07",
+    number: "08",
     title: "My Cat",
     category: "Personal apps",
     stage: "In development",
@@ -232,7 +262,7 @@ export const projects: Project[] = [
       "Provide metadata-only and full backup formats with validation before restoration.",
     ],
     delivered: [
-      "React views for the sound library, cat profiles, interactions, favorites, and settings.",
+      "React views for the sound library, cat profiles, guided interactions, educational articles, favorites, and settings.",
       "A local IndexedDB service for profile records, imported audio blobs, and application settings.",
       "Backup export and merge/replace restoration code with an explicit payload-validation step.",
     ],

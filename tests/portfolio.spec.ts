@@ -16,7 +16,7 @@ test("hero and header navigate to the right sections", async ({ page }) => {
   await page.getByRole("link", { name: "Explore my work" }).click();
   await expect(page).toHaveURL(/#work$/);
   await expect(
-    page.getByRole("heading", { name: "Ideas, built into projects." }),
+    page.getByRole("heading", { name: /Ideas, built/ }),
   ).toBeInViewport();
   await page
     .getByRole("navigation", { name: "Main navigation" })
@@ -24,7 +24,7 @@ test("hero and header navigate to the right sections", async ({ page }) => {
     .click();
   await expect(page).toHaveURL(/#contact$/);
   await expect(
-    page.getByRole("heading", { name: "Have a project in mind?" }),
+    page.getByRole("heading", { name: /Have a project/ }),
   ).toBeInViewport();
 });
 
@@ -33,7 +33,7 @@ test("filters combine with normalized search and reset an empty result", async (
 }) => {
   await page.goto("/#work");
   const cards = page.locator(".project-card");
-  await expect(cards).toHaveCount(7);
+  await expect(cards).toHaveCount(8);
   await page
     .getByRole("button", { name: "Spatial analytics", exact: true })
     .click();
@@ -50,14 +50,13 @@ test("filters combine with normalized search and reset an empty result", async (
     page.getByRole("heading", { name: "No matching projects" }),
   ).toBeVisible();
   await page.getByRole("button", { name: "Reset filters" }).click();
-  await expect(cards).toHaveCount(7);
+  await expect(cards).toHaveCount(8);
   await expect(page.getByRole("searchbox")).toHaveValue("");
   await page.getByRole("searchbox").fill("  pOsTgIs  ");
   await expect(cards).toHaveCount(1);
   await expect(cards).toContainText("P4I Spatial Analytics");
   await page.getByRole("searchbox").fill("");
   for (const [category, title] of [
-    ["Information systems", "KampusHub"],
     ["Web platforms", "P4I Corporate Hub"],
     ["Personal apps", "My Cat"],
     ["Digital commerce", "NGA Florist"],
@@ -66,6 +65,29 @@ test("filters combine with normalized search and reset an empty result", async (
     await expect(cards).toHaveCount(1);
     await expect(cards).toContainText(title);
   }
+});
+
+test("inventory can be found by tool and explored in the compact index", async ({
+  page,
+}) => {
+  await page.goto("/#work");
+  await page
+    .getByRole("button", { name: "Information systems", exact: true })
+    .click();
+  await expect(page.locator(".project-card")).toHaveCount(2);
+  await page.getByRole("button", { name: "List view", exact: true }).click();
+  await expect(page.locator(".project-grid")).toHaveClass(/list-view/);
+  await page.getByRole("searchbox").fill(" prisma ");
+  await expect(page.getByRole("status")).toHaveText("1 project");
+  await expect(page.locator(".project-card")).toContainText("NGA Inventra");
+  await page.getByRole("button", { name: "Grid view", exact: true }).click();
+  await expect(page.locator(".project-grid")).not.toHaveClass(/list-view/);
+  await page
+    .getByRole("link", { name: "Read NGA Inventra case study" })
+    .click();
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText(
+    "NGA Inventra",
+  );
 });
 
 test("publishing filter shows both publishing projects and search narrows them", async ({
@@ -123,6 +145,7 @@ test("theme toggles the resolved system preference and persists", async ({
 
 for (const [slug, title, stage] of [
   ["p4i-webgis", "P4I Spatial Analytics", "In development"],
+  ["nga-inventra", "NGA Inventra", "In development"],
   ["kampushub", "KampusHub", "Interactive prototype"],
   ["nga-florist", "NGA Florist", "Browser demo"],
   ["p4i-corporate-hub", "P4I Corporate Hub", "Implemented / under review"],
@@ -221,6 +244,7 @@ test("small viewports do not overflow and reduced motion is respected", async ({
   for (const path of [
     "/",
     "/work/p4i-webgis",
+    "/work/nga-inventra",
     "/work/kampushub",
     "/work/nga-florist",
     "/work/p4i-corporate-hub",
@@ -255,7 +279,7 @@ test("core content and case study navigation remain available without JavaScript
   const context = await browser.newContext({ javaScriptEnabled: false });
   const page = await context.newPage();
   await page.goto(`${baseURL}/`);
-  await expect(page.locator(".project-card")).toHaveCount(7);
+  await expect(page.locator(".project-card")).toHaveCount(8);
   await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
   await page.getByRole("link", { name: "Read NGA Florist case study" }).click();
   await expect(page.getByRole("heading", { level: 1 })).toHaveText(
