@@ -43,7 +43,7 @@ export default async function CaseStudy({ params }: Props) {
               <i aria-hidden="true" />
               {project.stage}
             </span>
-            <span>Implementation snapshot / October 2026</span>
+            <span>Source review / 1 November 2026</span>
           </div>
         </header>
         <ProjectVisual kind={project.visual} />
